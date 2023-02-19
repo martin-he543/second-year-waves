@@ -1,9 +1,14 @@
 import numpy as np
 import scipy as sp
+import uncertainties as unc
 import matplotlib.pyplot as plt
+import scipy.fftpack as fftpack
 import matplotlib.font_manager as fnt
 from scipy.optimize import curve_fit
 from scipy.optimize import root
+from scipy import interpolate
+from uncertainties import ufloat
+from uncertainties import unumpy
 
 titleFont =      {'fontname': 'C059', 'size': 12}
 subtitleFont =   {'fontname': 'C059', 'size': 9, 'style':'italic'}
@@ -57,7 +62,7 @@ plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-plt.savefig("Plots/Task2.4_16min.png", dpi=1000, bbox_inches='tight')
+# plt.savefig("Plots/Task2.4_16min.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
 
@@ -84,18 +89,37 @@ plt.fill_between(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoi
                 color='green', alpha=0.2, label='Difference (Δφ)')
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
-plt.savefig("Plots/Task2.4_16min_zoomed.png", dpi=1000, bbox_inches='tight')
+# plt.savefig("Plots/Task2.4_16min_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
-# intersection_vals = np.linspace(tau*2 - 00, tau*2 + 200, 100000)   # Scan 200 ds either side of the period = 0 point
-# intersection_square = Square(x2, fitting[0], fitting[1], fitting[2], 0)
-# intersection_start = np.where(intersection_square > 0)[0][0]
-# intersection_end = np.where(intersection_square < 0)[0][0]
-# print(x2[intersection_start], x2[intersection_end])
 
-# a = np.linspace(tau - 200, tau + 200, 1000)
-# def Sinusoidal_NK(x, a=fitting[0], b=fitting[1], c=fitting[2], d=0):  
-#     return a * np.sin(b * x + c) + d
+
+tau, T_range, phi_1 = ufloat(4800.000,0), ufloat(50,0), ufloat(1852.415,152.329)
+r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
+ufloat_list = []
+print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
+for i in range(7):
+    variables = ["a","b","c","d","e","f","g"]
+    print(variables[i],": ",fitting[i],"±",np.sqrt(covariance[i, i]))
+    ufloat_list.append(ufloat(fitting[i], np.sqrt(covariance[i, i])))
+
+# gamma = "{:.3f}".format(T_range/fitting[0])
+# delta_phi = "{:.3f}".format(np.abs(tau - 1093.014))
+gamma = (T_range/ufloat_list[0])**-1
+delta_phi = np.abs(tau - phi_1)/10
+D_gamma = (np.pi*2)*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
+D_delta_phi = (np.pi*2)*(r_inner - r_outer)**2/(2*delta_phi**2)
+
+print("γ: {:.6f} unitless".format(gamma))
+print("φ₁: {:.6f} ds".format(phi_1))
+print("Δφ: {:.6f} s".format(delta_phi))
+print("Dᵧ: {:.12f} m²·s¯¹".format(D_gamma))
+print("Dᵩ: {:.12f} m²·s¯¹".format(D_delta_phi))
+
+
+a = np.linspace(tau.nominal_value - 200, tau.nominal_value + 200, 1000)
+def Sinusoidal_NK(x, a=fitting[0], b=fitting[1], c=fitting[2], d=0):  
+    return a * np.sin(b * x + c) + d
 
 # for i in a:
 #     solutions = []
