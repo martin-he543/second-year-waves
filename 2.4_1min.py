@@ -47,13 +47,14 @@ plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, 
 
 plt.suptitle("Task 2.5: First 'Back of the Envelope' Estimate of D", **titleFont)
 # plt.title("T = " + str(tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
+plt.title("T = " + str(tau*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
 plt.ylabel("Temperature / K", **axesFont)
 plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-# plt.savefig("Plots/Task2.4_1min_a.png", dpi=1000, bbox_inches='tight')
+plt.savefig("Plots/Task2.4_1min_a.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
 
@@ -81,7 +82,8 @@ plt.fill_between(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoi
                 color='green', alpha=0.2, label='Difference (Δφ)')
 
 plt.suptitle("Task 2.5: 'Back of the Envelope' Estimate of D", **titleFont)
-plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
+# plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
+plt.title("T = " + str(tau*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
 plt.ylabel("Temperature / K", **axesFont)
 plt.xticks(**ticksFont)
@@ -97,7 +99,8 @@ plt.plot(x2, DoubleSinusoidal(x2, 0.5, fitting[1], fitting[2], fitting[3], fitti
 plt.plot(x2, Square(x2, 0.5, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
 
 plt.suptitle("Task 2.5: 'Back of the Envelope' Estimate of D", **titleFont)
-plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
+# plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
+plt.title("T = " + str(tau*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
 plt.ylabel("Temperature / K", **axesFont)
 plt.xticks(**ticksFont)

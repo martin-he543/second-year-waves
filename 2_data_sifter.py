@@ -1,6 +1,6 @@
 import numpy as np
 
-filename = "thermal_1min_a.txt"
+filename = "thermal_16min.txt"
 x2, y2 = np.loadtxt(filename, unpack=True,skiprows=3)
 new_x2, new_y2 = [], []
 
