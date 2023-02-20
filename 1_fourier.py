@@ -56,8 +56,8 @@ plt.show()
 
 #%% Task 1.3 - Numerical Integration Test
 
-x1, y1 = np.loadtxt("Task1.3_Semicircle_low.txt", unpack=True,skiprows=1)
-x2, y2 = np.loadtxt("Task1.3_Semicircle_high.txt", unpack=True,skiprows=1)
+x1, y1 = np.loadtxt("1.3_Semicircle_low.txt", unpack=True,skiprows=1)
+x2, y2 = np.loadtxt("1.3_Semicircle_high.txt", unpack=True,skiprows=1)
 
 fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
 fig.suptitle("Numerical Integration of Semicircles", **titleFont)
