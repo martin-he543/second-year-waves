@@ -48,16 +48,16 @@ print(fitting)
 plt.plot(x2, y2, label='Data', **pointStyle)
 plt.plot(x2, Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), ls="dotted", label='Mean Value', **lineStyleBoldP)
 plt.plot(x2, DoubleSinusoidal(x2, *fitting), label='Fitted Sine Wave', **lineStyleBoldR)
-plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
+# plt.plot(x2, Square(x2, fitting[0], fitting[1], tau/2, 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
 
-plt.plot(x2, DoubleSinusoidal(x2, T_range, fitting[1], fitting[2], fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Sine Wave', **lineStyleR)
-plt.plot(x2, Square(x2, T_range, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Square Wave', **lineStyleG)
+plt.plot(x2, DoubleSinusoidal(x2, 200/np.pi, fitting[1], tau/2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Sine Wave', **lineStyleR)
+plt.plot(x2, Square(x2, T_range, fitting[1], tau/2, 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Square Wave', **lineStyleG)
 
-plt.fill_between(x2, DoubleSinusoidal(x2, *fitting), DoubleSinusoidal(x2, T_range, fitting[1], fitting[2], fitting[3], fitting[4], fitting[5], fitting[6]),
+plt.fill_between(x2, DoubleSinusoidal(x2, *fitting), DoubleSinusoidal(x2, 200/np.pi, fitting[1], tau/2, fitting[3], fitting[4], fitting[5], fitting[6]),
                 color='red', alpha=0.2, label='Difference (γ)')
-plt.fill_between(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), 
-                Square(x2, T_range, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]),
-                color='green', alpha=0.2, label='Difference (Δφ)')
+# plt.fill_between(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), 
+                # Square(x2, T_range, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]),
+                # color='green', alpha=0.2, label='Difference (Δφ)')
 
 plt.suptitle("Task 2.5: First 'Back of the Envelope' Estimate of D", **titleFont)
 # plt.title("T = " + str(tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
@@ -90,7 +90,7 @@ plt.show()
 
 
 
-tau, T_range, phi_1 = ufloat(300,0), ufloat(50,0), ufloat(209.497,1.171)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(209.497,1.171)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -170,7 +170,7 @@ plt.show()
 
 
 
-tau, T_range, phi_1 = ufloat(300,0), ufloat(50,0), ufloat(299.835,0.36)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(299.835,0.36)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -250,7 +250,7 @@ plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-plt.savefig("Plots/Task2.4_2min_a.png", dpi=1000, bbox_inches='tight')
+# plt.savefig("Plots/Task2.4_2min_a.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
 
@@ -268,11 +268,11 @@ plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
-plt.savefig("Plots/Task2.4_2min_a_zoomed.png", dpi=1000, bbox_inches='tight')
+# plt.savefig("Plots/Task2.4_2min_a_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
 
-tau, T_range, phi_1 = ufloat(599.655,0), ufloat(50,0), ufloat(264.214,0.079)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(264.214,0.079)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -366,7 +366,7 @@ plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
 # plt.savefig("Plots/Task2.4_2min_b_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
-tau, T_range, phi_1 = ufloat(610.301,0), ufloat(50,0), ufloat(172.801,16.777)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(172.801,16.777)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -411,7 +411,7 @@ x2, y2 = np.loadtxt("thermal_4min_a.txt", unpack=True,skiprows=3)
 order = [0, 2, 1, 4, 3, 5, 6, 7]
 
 fitting, covariance = curve_fit(DoubleSinusoidal, x2, y2, p0=[10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], maxfev=100000)
-tau, T_range, phi_1 = ufloat(1200,0), ufloat(50,0), ufloat(1213.546,1.946)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(1213.546,1.946)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -475,7 +475,7 @@ plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
-plt.savefig("Plots/Task2.3_4A_zoomed.png", dpi=1000, bbox_inches='tight')
+# plt.savefig("Plots/Task2.3_4A_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
 # a = np.linspace(tau.nominal_value - 200, tau.nominal_value + 200, 1000)
@@ -504,7 +504,7 @@ order = [0, 2, 1, 4, 3, 5, 6, 7]
 
 fitting, covariance = curve_fit(DoubleSinusoidal, x2, y2, p0=[10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], maxfev=100000)
 
-tau, T_range, phi_1 = ufloat(1200,0), ufloat(50,0), ufloat(1093.014,0.3)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(1093.014,0.3)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -648,7 +648,7 @@ plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
 # plt.savefig("Plots/Task2.4_6min_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
-tau, T_range, phi_1 = ufloat(1800,0), ufloat(50,0), ufloat(1421.635,4.923)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(1421.635,4.923)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -731,7 +731,7 @@ plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
 # plt.savefig("Plots/Task2.4_8min_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
-tau, T_range, phi_1 = ufloat(2400,0), ufloat(50,0), ufloat(1417.621,18.452)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(1417.621,18.452)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
@@ -818,7 +818,7 @@ plt.show()
 
 
 
-tau, T_range, phi_1 = ufloat(4800.000,0), ufloat(50,0), ufloat(1852.415,152.329)
+tau, T_range, phi_1 = ufloat(0,0), ufloat(200/np.pi,0), ufloat(1852.415,152.329)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 ufloat_list = []
 print("Given the form: y ≡ a*sin(bx+c)+d*sin(ex+f)+g, we have")
