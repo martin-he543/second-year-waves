@@ -32,3 +32,8 @@ histStyle =      {'facecolor': 'green', 'alpha': 0.5, 'edgecolor': 'black'}
 barStyle =       {'color': 'green', 'edgecolor': 'black', 'linewidth': 0.25} 
 font =           fnt.FontProperties(family='C059', weight='normal', style='italic', size=8)
 
+
+dataset_list = ["thermal_1min_a.txt","thermal_1min_b.txt","thermal_2min_a.txt", "thermal_2min_b.txt", "thermal_4min_a.txt", "thermal_4min_b.txt", "thermal_6min.txt", "thermal_8min.txt", "thermal_16min.txt"]
+dataset_values = [2, 2, 1, 1, 0.5, 0.5, 1/3, 0.25, 0.125]
+
+time, x = np.loadtxt(path)
