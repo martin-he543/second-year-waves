@@ -32,7 +32,7 @@ histStyle =      {'facecolor': 'green', 'alpha': 0.5, 'edgecolor': 'black'}
 barStyle =       {'color': 'green', 'edgecolor': 'black', 'linewidth': 0.25} 
 font =           fnt.FontProperties(family='C059', weight='normal', style='italic', size=8)
 
-x2, y2 = np.loadtxt("thermal_4min_a.txt", unpack=True,skiprows=3)
+x2, y2 = np.loadtxt("4 MINUTES (A).txt", unpack=True,skiprows=3)
 order = [0, 2, 1, 4, 3, 5, 6, 7]
 
 def Sinusoidal(x, a, b, c, d):  return a * np.sin(b * x + c) + d
@@ -66,61 +66,43 @@ print("Dᵩ: {:.10f} m²·s¯¹".format(D_delta_phi))
 plt.plot(x2, y2, label='Data', **pointStyle)
 plt.plot(x2, DoubleSinusoidal(x2, *fitting), label='Fitted Sine Wave', **lineStyleBoldR)
 plt.plot(x2, Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), ls="dotted", label='Mean Value', **lineStyleBoldP)
-plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
+# plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
 
 plt.plot(x2, DoubleSinusoidal(x2, T_range.nominal_value, fitting[1], fitting[2], fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Sine Wave', **lineStyleR)
 plt.plot(x2, Square(x2, T_range.nominal_value, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Square Wave', **lineStyleG)
 
 plt.fill_between(x2, DoubleSinusoidal(x2, *fitting), DoubleSinusoidal(x2, T_range.nominal_value, fitting[1], fitting[2], fitting[3], fitting[4], fitting[5], fitting[6]),
                  color='red', alpha=0.2, label='Difference (γ)')
-plt.fill_between(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), 
-                 Square(x2, T_range.nominal_value, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]),
-                 color='green', alpha=0.2, label='Difference (Δφ)')
 
 plt.suptitle("Task 2.3: First 'Back of the Envelope' Estimate of D", **titleFont)
 # plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
 plt.title("T = " + str(tau.nominal_value*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
-plt.ylabel("Temperature / K", **axesFont)
+plt.ylabel("Temperature / °C", **axesFont)
 plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
-handles, labels = plt.gca().get_legend_handles_labels()
-plt.legend([handles[idx] for idx in order],[labels[idx] for idx in order],
-           loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
-plt.savefig("Plots/Task2.3_4A.png", dpi=1000, bbox_inches='tight')
+plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
+# plt.savefig("Plots/Task2.3_4A.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
 plt.plot(x2, y2, label='Data', **pointStyle)
 plt.plot(x2, DoubleSinusoidal(x2, *fitting), label='Fitted Sine Wave', **lineStyleBoldR)
 plt.plot(x2, Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), ls="dotted", label='Mean Value', **lineStyleBoldP)
-plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
+# plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
 
 plt.suptitle("Task 2.3: First 'Back of the Envelope' Estimate of D", **titleFont)
 # plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
 plt.title("T = " + str(tau.nominal_value*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
-plt.ylabel("Temperature / K", **axesFont)
+plt.ylabel("Temperature / °C", **axesFont)
 plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
-plt.savefig("Plots/Task2.3_4A_zoomed.png", dpi=1000, bbox_inches='tight')
+# plt.savefig("Plots/Task2.3_4A_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
-a = np.linspace(tau.nominal_value - 200, tau.nominal_value + 200, 1000)
-def Sinusoidal_NK(x, a=fitting[0], b=fitting[1], c=fitting[2], d=0):  
-    return a * np.sin(b * x + c) + d
-
-for i in a:
-    solutions = []
-    b = i
-    c = abs(int(round(i)))
-    for j in range(-c, c+1):
-        y = root(Sinusoidal_NK, j)
-        if y.success and (round(y.x[0], 6) not in solutions):
-            solutions.append(round(y.x[0], 3))
-    print(i, solutions)
 
 
 
@@ -128,9 +110,7 @@ for i in a:
 
 
 
-
-x2, y2 = np.loadtxt("thermal_4min_b.txt", unpack=True,skiprows=3)
-order = [0, 2, 1, 4, 3, 5, 6, 7]
+x2, y2 = np.loadtxt("4 MINUTES (B).txt", unpack=True,skiprows=3)
 
 def Sinusoidal(x, a, b, c, d):  return a * np.sin(b * x + c) + d
 def DoubleSinusoidal(x, a, b, c, d, e, f, g):  return a * np.sin(b * x + c) + d * np.sin(e * x + f) + g
@@ -162,28 +142,23 @@ print("Dᵩ: {:.10f} m²·s¯¹".format(D_delta_phi))
 plt.plot(x2, y2, label='Data', **pointStyle)
 plt.plot(x2, DoubleSinusoidal(x2, *fitting), label='Fitted Sine Wave', **lineStyleBoldR)
 plt.plot(x2, Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), ls="dotted", label='Mean Value', **lineStyleBoldP)
-plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
+# plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
 
 plt.plot(x2, DoubleSinusoidal(x2, T_range.nominal_value, fitting[1], fitting[2], fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Sine Wave', **lineStyleR)
 plt.plot(x2, Square(x2, T_range.nominal_value, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Actual Square Wave', **lineStyleG)
 
 plt.fill_between(x2, DoubleSinusoidal(x2, *fitting), DoubleSinusoidal(x2, T_range.nominal_value, fitting[1], fitting[2], fitting[3], fitting[4], fitting[5], fitting[6]),
                  color='red', alpha=0.2, label='Difference (γ)')
-plt.fill_between(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), 
-                 Square(x2, T_range.nominal_value, fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]),
-                 color='green', alpha=0.2, label='Difference (Δφ)')
 
 plt.suptitle("Task 2.3: First 'Back of the Envelope' Estimate of D", **titleFont)
 # plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
 plt.title("T = " + str(tau.nominal_value*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
-plt.ylabel("Temperature / K", **axesFont)
+plt.ylabel("Temperature / °C", **axesFont)
 plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
-handles, labels = plt.gca().get_legend_handles_labels()
-plt.legend([handles[idx] for idx in order],[labels[idx] for idx in order],
-           loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
+plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
 # plt.savefig("Plots/Task2.3_4B.png", dpi=1000, bbox_inches='tight')
 plt.show()
 
@@ -191,31 +166,17 @@ plt.show()
 plt.plot(x2, y2, label='Data', **pointStyle)
 plt.plot(x2, DoubleSinusoidal(x2, *fitting), label='Fitted Sine Wave', **lineStyleBoldR)
 plt.plot(x2, Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), ls="dotted", label='Mean Value', **lineStyleBoldP)
-plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
+# plt.plot(x2, Square(x2, fitting[0], fitting[1], fitting[2], 0) + Sinusoidal(x2, fitting[3], fitting[4], fitting[5], fitting[6]), label='Square Wave', **lineStyleBoldG)
 
 plt.suptitle("Task 2.3: First 'Back of the Envelope' Estimate of D", **titleFont)
 # plt.title("T = " + str(2*tau) + " ds; γ = " + str(gamma) + "; Δφ = " + str(delta_phi), **subtitleFont)
 plt.title("T = " + str(tau.nominal_value*2) + " ds", **subtitleFont)
 plt.xlabel("Time / ds", **axesFont)
-plt.ylabel("Temperature / K", **axesFont)
+plt.ylabel("Temperature / °C", **axesFont)
 plt.xticks(**ticksFont)
 plt.yticks(**ticksFont)
 
 plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.2), prop=font)
 # plt.savefig("Plots/Task2.3_4B_zoomed.png", dpi=1000, bbox_inches='tight')
 plt.show()
-
-a = np.linspace(tau.nominal_value - 200, tau.nominal_value + 200, 1000)
-def Sinusoidal_NK(x, a=fitting[0], b=fitting[1], c=fitting[2], d=0):  
-    return a * np.sin(b * x + c) + d
-
-for i in a:
-    solutions = []
-    b = i
-    c = abs(int(round(i)))
-    for j in range(-c, c+1):
-        y = root(Sinusoidal_NK, j)
-        if y.success and (round(y.x[0], 6) not in solutions):
-            solutions.append(round(y.x[0], 3))
-    print(i, solutions)
 
