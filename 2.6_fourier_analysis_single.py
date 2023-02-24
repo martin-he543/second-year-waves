@@ -34,7 +34,7 @@ font =           fnt.FontProperties(family='C059', weight='normal', style='itali
 
 #%% Task 2.6 - Fourier Analysis of a Signal
 
-dataset_list = ["thermal_16min.txt"]
+dataset_list = ["16 MINUTES.txt"]
 path = dataset_list[0]
 
 time, x = np.loadtxt(path, skiprows=3, unpack=True); t_n = 3

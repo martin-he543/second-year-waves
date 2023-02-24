@@ -32,23 +32,22 @@ histStyle =      {'facecolor': 'green', 'alpha': 0.5, 'edgecolor': 'black'}
 barStyle =       {'color': 'green', 'edgecolor': 'black', 'linewidth': 0.25} 
 font =           fnt.FontProperties(family='C059', weight='normal', style='italic', size=8)
 
+def Sinusoidal(x, a, b, c, d):  return a * np.sin(b * x + c) + d
+def DoubleSinusoidal(x, a, b, c, d, e, f, g):  return a * np.sin(b * x + c) + d * np.sin(e * x + f) + g
+def Square(x, a, b, c, d):      return a * np.sign(np.sin(b * x + c)) + d
+def substring_after(s, delim):  return s.partition(delim)[2]
+def superscripter(string):
+    superscript_map = {'0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '¯'}; new_string = ''
+    for char in string:
+        if char.lower() in superscript_map:
+            new_string += superscript_map[char.lower()]
+        else:   new_string += char
+    return new_string
+
 dataset_list = ["1 MINUTE (A).txt","1 MINUTE (B).txt"]
 for i in range(len(dataset_list)):
     file = dataset_list[i]
     x_data, y_data = np.loadtxt(file, unpack=True,skiprows=3)
-
-    def Sinusoidal(x, a, b, c, d):  return a * np.sin(b * x + c) + d
-    def DoubleSinusoidal(x, a, b, c, d, e, f, g):  return a * np.sin(b * x + c) + d * np.sin(e * x + f) + g
-    def Square(x, a, b, c, d):      return a * np.sign(np.sin(b * x + c)) + d
-    def substring_after(s, delim):  return s.partition(delim)[2]
-    def superscripter(string):
-        superscript_map = {'0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '¯'}; new_string = ''
-        for char in string:
-            if char.lower() in superscript_map:
-                new_string += superscript_map[char.lower()]
-            else:   new_string += char
-        return new_string
-
     i = 0
     tau, T_range = 300, 50
     fitting, covariance = curve_fit(DoubleSinusoidal, x_data, y_data, p0=[0.1, -0.00864, 0, 10, 0,  0, 54.8], maxfev=100000)
