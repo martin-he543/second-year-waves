@@ -34,7 +34,7 @@ def fit_bessel(
     trans_periods, # periods for the transmission factors (s)
     phase_data, # list of phase lags
     phase_periods, # period for the phase lags
-    r_out = 0.01025, # outer radius (m)
+    r_out = 0.02057, # outer radius (m)
     r_in = 0.0025, # inner  radius (m)
     no_terms = 100, # number of terms you want to truncate the J0 Bessel Series to
     alpha_initial_guess=1  # First guess of alpha for the fitting algorithm
