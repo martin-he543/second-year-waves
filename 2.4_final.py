@@ -130,7 +130,7 @@ for j in range(9):
     # print(gamma, delta_phi)
     coefficients = []
     for l in range(len(fitting)):
-        coefficients.append(ufloat(fitting[i], np.sqrt(covariance[l][l])))
+        coefficients.append(ufloat(fitting[l], np.sqrt(covariance[l][l])))
 
     # The fitting for the original sine wave
     plt.figure(figsize = (8, 6))
@@ -160,7 +160,7 @@ for j in range(9):
     
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.15), prop=font)
-    plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
+    # plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     
@@ -177,6 +177,14 @@ for j in range(9):
 
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-    plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
+    # plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
+    
+    coefficients = []
+    for l in range(len(fitting)):
+        coefficients.append("{:.12f}".format(ufloat(fitting[l], np.sqrt(covariance[l][l]))))
+    coefficients.append(gamma)
+    coefficients.append(delta_phi)
+    
+    np.savetxt(dataset_list[j] + "_coefficients.txt", coefficients, fmt="%s")

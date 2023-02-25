@@ -9,9 +9,9 @@ from scipy.optimize import root
 from scipy.fftpack import fft as fft
 from scipy import interpolate
 from uncertainties import ufloat
+from uncertainties import ufloat_fromstr
 from uncertainties import unumpy
-import sympy as sym
-from sympy import pi
+
 
 titleFont =      {'fontname': 'C059', 'size': 14, 'weight': 'bold'}
 subtitleFont =   {'fontname': 'C059', 'size': 8, 'style':'italic'}
@@ -43,25 +43,18 @@ def superscripter(string):
         else:   new_string += char
     return new_string
 
-
 dataset_list = ["1 MINUTE (A).txt","1 MINUTE (B).txt","2 MINUTES (A).txt", "2 MINUTES (B).txt", "4 MINUTES (A).txt", "4 MINUTES (B).txt", "6 MINUTES.txt", "8 MINUTES.txt", "16 MINUTES.txt"]
 path = dataset_list[0]
 x, y = np.loadtxt(path, skiprows=3, unpack=True); t_n = 3
 
-# Define the Fourier series
-t = sym.symbols('t')
-f = sym.fourier_series(sum(y[i]*sym.exp(sym.I*i*t) for i in range(len(x))), (t, x[0], x[-1]))
-# Truncate the Fourier series at n=7
-fs_truncated = f.truncate(7)
-# Print the truncated Fourier series
-print(fs_truncated)
+#%% METHOD 3: TRUNCATING A FOURIER SERIES BY NUMERICAL INTEGRATION
 
 
-
-
+#%% METHOD 1: TRUNCATING A FOURIER SERIES BY FFT
 for i in range(len(dataset_list)):
     path = dataset_list[i]
-    time, x = np.loadtxt(path, skiprows=3, unpack=True); t_n = 3
+    n = 3
+    time, x = np.loadtxt(path, skiprows=3, unpack=True); t_n = n
     X = fft(x); X[t_n:-t_n] = 0
     x_trunc = np.real(np.fft.ifft(X))
     amp = np.abs(X[:t_n + 1]) / len(x) * 2
@@ -94,4 +87,37 @@ for i in range(len(dataset_list)):
     plt.legend(loc="best", prop=font)
     plt.show()
     
-    
+""" #%% METHOD 2: TRUNCATING A FOURIER SERIES BY CURVE FIT
+import sympy as sym
+from sympy import pi, plot, fourier_series
+from sympy.abc import x
+
+dataset_list = ["1 MINUTE (A)_coefficients.txt","1 MINUTE (B)_coefficients.txt","2 MINUTES (A)_coefficients.txt", "2 MINUTES (B)_coefficients.txt", "4 MINUTES (A)_coefficients.txt", "4 MINUTES (B)_coefficients.txt", "6 MINUTES_coefficients.txt", "8 MINUTES_coefficients.txt", "16 MINUTES_coefficients.txt"]
+
+for m in range(len(dataset_list)):
+    coeff_list = np.genfromtxt("Output/" + dataset_list[m], dtype="str")
+    cfds, cods  = [], []
+    for k in range(len(coeff_list)):
+        cfds.append(ufloat_fromstr(coeff_list[k]).n)
+        cods.append(ufloat_fromstr(coeff_list[k]).s)
+        
+    a, b, c, d, e, f, g = cfds[0], cfds[1], cfds[2], cfds[3], cfds[4], cfds[5], cfds[6]
+    f = (a * sym.sin(b * x + c)) + d * sym.sin(e * x + f) + g
+    s = fourier_series(f, (x, -5000, 5000))
+    s1 = s.truncate(n = 3)
+    s2 = s.truncate(n = 5)
+    s3 = s.truncate(n = 7)
+
+    p = plot(f, s1, s2, s3, show=False, legend=True)
+    p[0].line_color = (0, 0, 0)
+    p[0].label = 'original'
+    p[1].line_color = (0.7, 0.7, 0.7)
+    p[1].label = 'n=3'
+    p[2].line_color = (0.5, 0.5, 0.5)
+    p[2].label = 'n=5'
+    p[3].line_color = (0.3, 0.3, 0.3)
+    p[3].label = 'n=7'
+    p.show()
+
+ """
+
