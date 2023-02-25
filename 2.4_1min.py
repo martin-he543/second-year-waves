@@ -31,7 +31,7 @@ histStyle =      {'facecolor': 'green', 'alpha': 0.5, 'edgecolor': 'black'}
 barStyle =       {'color': 'green', 'edgecolor': 'black', 'linewidth': 0.25} 
 font =           fnt.FontProperties(family='C059', weight='normal', style='italic', size=8)
 
-dataset_list = ["thermal_1min_a.txt","thermal_1min_b.txt"]
+dataset_list = ["1 MINUTE (A).txt","1 MINUTE (B).txt"]
 
 def Sinusoidal(x, a, b, c, d):  return a * np.sin(b * x + c) + d
 def DoubleSinusoidal(x, a, b, c, d, e, f, g):  return a * np.sin(b * x + c) + d * np.sin(e * x + f) + g
