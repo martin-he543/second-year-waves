@@ -108,8 +108,8 @@ tau_list = [300, 300, 600, 600, 1200, 1200, 1800, 2400, 4800]
 tau_diff_list = [300, 300, 600, 600, 2400, 2400, 3600, 4800, 9600]
 phi_1_list = [ufloat(209.497,1.171), ufloat(299.835,0.36), ufloat(264.214,0.079), ufloat(172.801,16.777), ufloat(1213.546,1.946), ufloat(1093.014,0.3), ufloat(1421.635,4.923), ufloat(1417.621,18.452), ufloat(1852.415,152.329)]
 p0_list = [[0.1, -0.00864, 0, 10, 0,  0, 54.8], [0.1, -0.00864, 0, 10, 0,  0, 54.8], [32.5, -0.005, -5, 10, 0, 0, 52.5], [2.5, -0.005, -5, 10, 0.001,  2, 62.2], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [18, -0.0018, -6.5, 10, 0, 0, 50], [32, -0.0013, -7.4, 10, 0, 0, 50], [40, -0.00065, -2, 10, 0, 0, 55], ufloat(1417.621,18.452)]
-filename_list = ["Plots/Task2.4_1min_a.png", "Plots/Task2.4_1min_b.png", "Plots/Task2.4_2min_a.png", "Plots/Task2.4_2min_b.png", "Plots/Task2.4_4min_a.png", "Plots/Task2.4_1min_b.png", "Plots/Task2.4_6min.png", "Plots/Task2.4_8min.png", "Plots/Task2.4_16min.png"]
-filename_list_zoomed = ["Plots/Task2.4_1min_a_zoomed.png", "Plots/Task2.4_1min_b_zoomed.png", "Plots/Task2.4_2min_a_zoomed.png", "Plots/Task2.4_2min_b_zoomed.png", "Plots/Task2.4_4min_a_zoomed.png", "Plots/Task2.4_1min_b_zoomed.png", "Plots/Task2.4_6min_zoomed.png", "Plots/Task2.4_8min_zoomed.png", "Plots/Task2.4_16min_zoomed.png"]
+filename_list = ["Plots/Task2.4_1min_a.png", "Plots/Task2.4_1min_b.png", "Plots/Task2.4_2min_a.png", "Plots/Task2.4_2min_b.png", "Plots/Task2.4_4min_a.png", "Plots/Task2.4_4min_b.png", "Plots/Task2.4_6min.png", "Plots/Task2.4_8min.png", "Plots/Task2.4_16min.png"]
+filename_list_zoomed = ["Plots/Task2.4_1min_a_zoomed.png", "Plots/Task2.4_1min_b_zoomed.png", "Plots/Task2.4_2min_a_zoomed.png", "Plots/Task2.4_2min_b_zoomed.png", "Plots/Task2.4_4min_a_zoomed.png", "Plots/Task2.4_4min_b_zoomed.png", "Plots/Task2.4_6min_zoomed.png", "Plots/Task2.4_8min_zoomed.png", "Plots/Task2.4_16min_zoomed.png"]
 amplitude, T_range = ufloat(200/np.pi,0), ufloat(50,0)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
 
@@ -160,7 +160,7 @@ for j in range(9):
     
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.15), prop=font)
-    # plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
+    plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     
@@ -177,7 +177,7 @@ for j in range(9):
 
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-    # plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
+    plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     
@@ -187,4 +187,4 @@ for j in range(9):
     coefficients.append(gamma)
     coefficients.append(delta_phi)
     
-    np.savetxt(dataset_list[j] + "_coefficients.txt", coefficients, fmt="%s")
+    # np.savetxt(dataset_list[j] + "_coefficients.txt", coefficients, fmt="%s")
