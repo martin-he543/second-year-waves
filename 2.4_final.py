@@ -73,7 +73,7 @@ def formatter(gamma, delta_phi):
     D_gamma_final = diff_gamma + exp_gamma
     D_delta_phi_final = diff_delta_phi + exp_delta_phi
 
-    plot_title = "T = " + file.replace(".txt","") + "; γ = {:.4f} ± {:.4f}, Δφ = {:.4f} ± {:.4f} s, \n$D_γ$ = ".format(gamma.n, gamma.s, delta_phi.n, delta_phi.s) + str(D_gamma_final) + " m².s¯¹, $D_φ$ = " + str(D_delta_phi_final) + " m².s¯¹"
+    plot_title = "T = " + file.replace(".txt","") + "; γ = {:.4f} ± {:.4f}, Δφ = {:.4f} ± {:.4f} rad, \n$D_γ$ = ".format(gamma.n, gamma.s, delta_phi.n, delta_phi.s) + str(D_gamma_final) + " m².s¯¹, $D_φ$ = " + str(D_delta_phi_final) + " m².s¯¹"
 
     print(D_gamma_final)
     print(D_delta_phi_final)   
@@ -114,6 +114,7 @@ amplitude, T_range = ufloat(200/np.pi,0), ufloat(50,0)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
 
 delta_phi_list = [ufloat(300 - 209.497,1.171), ufloat(300 - 299.835,0.36), ufloat(600 - 264.214,0.079), ufloat(600 - 172.801,16.777), ufloat(2400 - 1213.546,1.946), ufloat(2400 - 1093.014,0.3), ufloat(3600 - 1421.635,4.923), ufloat(4800 - 1417.621,18.452), ufloat(9600 - 1852.415,152.329)]
+fixer_upper = [0, 0, 0, 0, 1200, 1200, 1800, 2400, 4800]
 
 gamma1, delta_phi1 = [], []
 
@@ -152,7 +153,7 @@ for j in range(9):
     plt.yticks(**ticksFont)
     
     gamma = np.abs((amplitude/coefficients[0])**-1)
-    delta_phi = 2*np.pi*((np.abs(delta_phi_list[j]))/10)/tau_list[j]
+    delta_phi = 2*np.pi*((np.abs(delta_phi_list[j]) + fixer_upper[j])/10)/tau_list[j]
     gamma_disp = "{:.12E}".format(gamma)
     delta_phi_disp = "{:.12E}".format(delta_phi)
     print("γ = ", gamma_disp)
