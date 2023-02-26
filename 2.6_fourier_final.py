@@ -37,6 +37,7 @@ font =           fnt.FontProperties(family='C059', weight='normal', style='itali
 dataset_list = ["1 MINUTE (A).txt","1 MINUTE (B).txt","2 MINUTES (A).txt", "2 MINUTES (B).txt", "4 MINUTES (A).txt", "4 MINUTES (B).txt", "6 MINUTES.txt", "8 MINUTES.txt", "16 MINUTES.txt"]
 dataset_values = [2, 2, 1, 1, 0.5, 0.5, 1/3, 0.25, 0.125]
 iter = [2, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49]
+# iter = [49]
 ranges = [[1, 50],[51, 100], [101, 150], [151, 200], [201, 250], [251, 300],[301, 350], [351, 400], [401, 450], [451, 500], [501, 550], [551, 600]]
 phase_data = np.loadtxt("2.6_harmonic_phase_data.txt")
 
@@ -87,7 +88,7 @@ for i in range(len(dataset_list)):
         # subtitle_text = ""
         # for n in range(t_n):
         #     subtitle_text += f"A_{n} = {amp[n]:.4f}, Δφ_{n} = {phase[n]:.4f} \n"
-        plt.suptitle("Task 2.6A: Truncating a Fou rier Series, n = {:.0f}".format(t_n), **titleFont)
+        plt.suptitle("Task 2.6A: Truncating a Fourier Series, n = {:.0f}".format(t_n), **titleFont)
         plt.title("Source: " + path + "; " + subtitle, **subtitleFont)
         plt.xlabel("Time / ds", **axesFont)
         plt.ylabel("Temperature / °C", **axesFont)
