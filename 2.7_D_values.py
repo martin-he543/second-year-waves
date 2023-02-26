@@ -20,7 +20,7 @@ annotFontWeak =  {'fontname': 'C059', 'size': 6, 'weight': 'normal'}
 annotFontMini1 = {'fontname': 'C059', 'size': 5.5, 'weight': 'normal'}
 annotFontMini2 = {'fontname': 'C059', 'size': 8, 'weight': 'bold'}
 ticksFont =      {'fontname': 'SF Mono', 'size': 7}
-errorStyle =     {'mew': 1, 'ms': 1, 'capsize': 3, 'color': 'lightgray', 'zorder': 11}
+errorStyle =     {'mew': 1, 'ms': 1, 'capsize': 3, 'color': 'white', 'zorder': 13}
 pointStyle =     {'mew': 1, 'ms': 3, 'zorder': 100}
 lineStyle =      {'linewidth': 0.8, 'zorder': 100}
 lineStyleR =     {'linewidth': 0.8, 'color': 'red'}
@@ -33,7 +33,7 @@ histStyle =      {'facecolor': 'green', 'alpha': 0.5, 'edgecolor': 'black'}
 barStyle =       {'color': 'green', 'edgecolor': 'black', 'linewidth': 0.25} 
 font =           fnt.FontProperties(family='C059', weight='normal', style='italic', size=8)
 
-D_vals = np.genfromtxt("2.7_D_values.txt", dtype="str")
+D_vals = np.genfromtxt("2.7_fourier_output_D.txt", dtype="str")
 
 def linear(x, a, b):            return a*x + b
 def exponential(x, a, b, c):    return a*np.exp(b*x) + c
@@ -156,9 +156,18 @@ exponential_16_phi = curve_fit(exponential, x_values, harmonics_16_phi, sigma=ha
 
 
 
-order = 1
+order = 10
 def tenth(x, coeff):
-    return coeff[0]*x + coeff[1]
+    return coeff[0]*x**10 + coeff[1]*x**9 + coeff[2]*x**8 + coeff[3]*x**7 + coeff[4]*x**6 + coeff[5]*x**5 + coeff[6]*x**4 + coeff[7]*x**3 + coeff[8]*x**2 + coeff[9]*x**1 + coeff[10]
+
+# coeff[0]*x**9 + coeff[1]*x**8 + coeff[2]*x**7 + coeff[3]*x**6 + coeff[4]*x**5 + coeff[5]*x**4 + coeff[6]*x**3 + coeff[7]*x**2 + coeff[8]*x**1 + coeff[9]
+# coeff[0]*x**8 + coeff[1]*x**7 + coeff[2]*x**6 + coeff[3]*x**5 + coeff[4]*x**4 + coeff[5]*x**3 + coeff[6]*x**2 + coeff[7]*x**1 + coeff[8]
+# coeff[0]*x**7 + coeff[1]*x**6 + coeff[2]*x**5 + coeff[3]*x**4 + coeff[4]*x**3 + coeff[5]*x**2 + coeff[6]*x**1 + coeff[7]
+# coeff[0]*x**6 + coeff[1]*x**5 + coeff[2]*x**4 + coeff[3]*x**3 + coeff[4]*x**2 + coeff[5]*x**1 + coeff[6]
+# coeff[0]*x**5 + coeff[1]*x**4 + coeff[2]*x**3 + coeff[3]*x**2 + coeff[4]*x**1 + coeff[5]
+# coeff[0]*x**4 + coeff[1]*x**3 + coeff[2]*x**2 + coeff[3]*x**1 + coeff[4]
+# coeff[0]*x**3 + coeff[1]*x**2 + coeff[2]*x**1 + coeff[3]
+# coeff[0]*x**2 + coeff[1]*x**1 + coeff[2] 
 
 polyPlotter_1a_gamma = np.polyfit(x_values, harmonics_1a_gamma, order)
 polyPlotter_1a_phi = np.polyfit(x_values, harmonics_1a_phi, order)
@@ -188,43 +197,43 @@ def polyPlotter(x, polycoeffs):
 
 fig, ax = plt.subplots(figsize=(10,6))
 
-ax.plot(x_values, harmonics_1a_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_1a_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_1b_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_1b_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_2a_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_2a_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_2b_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_2b_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_4a_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_4a_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_4b_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_4b_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_6_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_6_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_8_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_8_phi, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_16_gamma, 'x-', **pointStyle)
-ax.plot(x_values, harmonics_16_phi, 'x-', **pointStyle)
+ax.plot(x_values, harmonics_1a_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_1a_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_1b_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_1b_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_2a_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_2a_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_2b_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_2b_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_4a_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_4a_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_4b_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_4b_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_6_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_6_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_8_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_8_phi, 'x', **pointStyle)
+ax.plot(x_values, harmonics_16_gamma, 'x', **pointStyle)
+ax.plot(x_values, harmonics_16_phi, 'x', **pointStyle)
 
-# ax.plot(line_values, linear(line_values, *linear_1a_gamma[0]), label='Dᵧ: 1 minute, A', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_1a_phi[0]), label='Dᵩ: 1 minute, A', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_1b_gamma[0]), label='Dᵧ: 1 minute, B', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_1b_phi[0]), label='Dᵩ: 1 minute, B', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_2a_gamma[0]), label='Dᵧ: 2 minutes, A', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_2a_phi[0]), label='Dᵩ: 2 minutes, A', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_2b_gamma[0]), label='Dᵧ: 2 minutes, B', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_2b_phi[0]), label='Dᵩ: 2 minutes, B', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_4a_gamma[0]), label='Dᵧ: 4 minutes, A', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_4a_phi[0]), label='Dᵩ: 4 minutes, A', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_4b_gamma[0]), label='Dᵧ: 4 minutes, B', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_4b_phi[0]), label='Dᵩ: 4 minutes, B', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_6_gamma[0]), label='Dᵧ: 6 minutes', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_6_phi[0]), label='Dᵩ: 6 minutes', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_8_gamma[0]), label='Dᵧ: 8 minutes', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_8_phi[0]), label='Dᵩ: 8 minutes', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_16_gamma[0]), label='Dᵧ: 16 minutes', **lineStyle)
-# ax.plot(line_values, linear(line_values, *linear_16_phi[0]), label='Dᵩ: 16 minutes', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_1a_gamma[0]), label='Dᵧ: 1 minute, A', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_1a_phi[0]), label='Dᵩ: 1 minute, A', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_1b_gamma[0]), label='Dᵧ: 1 minute, B', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_1b_phi[0]), label='Dᵩ: 1 minute, B', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_2a_gamma[0]), label='Dᵧ: 2 minutes, A', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_2a_phi[0]), label='Dᵩ: 2 minutes, A', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_2b_gamma[0]), label='Dᵧ: 2 minutes, B', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_2b_phi[0]), label='Dᵩ: 2 minutes, B', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_4a_gamma[0]), label='Dᵧ: 4 minutes, A', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_4a_phi[0]), label='Dᵩ: 4 minutes, A', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_4b_gamma[0]), label='Dᵧ: 4 minutes, B', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_4b_phi[0]), label='Dᵩ: 4 minutes, B', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_6_gamma[0]), label='Dᵧ: 6 minutes', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_6_phi[0]), label='Dᵩ: 6 minutes', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_8_gamma[0]), label='Dᵧ: 8 minutes', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_8_phi[0]), label='Dᵩ: 8 minutes', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_16_gamma[0]), label='Dᵧ: 16 minutes', **lineStyle)
+ax.plot(line_values, linear(line_values, *linear_16_phi[0]), label='Dᵩ: 16 minutes', **lineStyle)
 
 # ax.plot(line_values, exponential(line_values, *exponential_1a_gamma[0]), label='Dᵧ: 1 minute, A', **lineStyle)
 # ax.plot(line_values, exponential(line_values, *exponential_1a_phi[0]), label='Dᵩ: 1 minute, A', **lineStyle)
@@ -310,6 +319,6 @@ ax.tick_params(axis='both', labelsize=7)
 ax.set_title(f"Complete Values up to n = 49, with Errorbars",**subtitleFont)
 fig.suptitle('Task 2.7B: D Values for Various Periods', **titleFont)
 fig.legend(loc="lower right", prop=font, bbox_to_anchor=(1, 0.13))
-ax.set_ylim(0, 0.5e-4)
-plt.savefig(f"Plots/Task2.7B_DValues_JustConnected_LoglessScale_zoomed.png", dpi=300)
+ax.set_ylim(1e-8, 0.04e-4)
+plt.savefig(f"Plots/Task2.7B_DValues_Linear_LoglessScale_NoConnection_0.04.png", dpi=300)
 plt.show()

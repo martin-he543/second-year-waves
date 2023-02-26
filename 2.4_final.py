@@ -111,7 +111,7 @@ p0_list = [[0.1, -0.00864, 0, 10, 0,  0, 54.8], [0.1, -0.00864, 0, 10, 0,  0, 54
 filename_list = ["Plots/Task2.4_1min_a.png", "Plots/Task2.4_1min_b.png", "Plots/Task2.4_2min_a.png", "Plots/Task2.4_2min_b.png", "Plots/Task2.4_4min_a.png", "Plots/Task2.4_4min_b.png", "Plots/Task2.4_6min.png", "Plots/Task2.4_8min.png", "Plots/Task2.4_16min.png"]
 filename_list_zoomed = ["Plots/Task2.4_1min_a_zoomed.png", "Plots/Task2.4_1min_b_zoomed.png", "Plots/Task2.4_2min_a_zoomed.png", "Plots/Task2.4_2min_b_zoomed.png", "Plots/Task2.4_4min_a_zoomed.png", "Plots/Task2.4_4min_b_zoomed.png", "Plots/Task2.4_6min_zoomed.png", "Plots/Task2.4_8min_zoomed.png", "Plots/Task2.4_16min_zoomed.png"]
 amplitude, T_range = ufloat(200/np.pi,0), ufloat(50,0)
-r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
+r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
 
 delta_phi_list = [ufloat(300 - 209.497,1.171), ufloat(300 - 299.835,0.36), ufloat(600 - 264.214,0.079), ufloat(600 - 172.801,16.777), ufloat(2400 - 1213.546,1.946), ufloat(2400 - 1093.014,0.3), ufloat(3600 - 1421.635,4.923), ufloat(4800 - 1417.621,18.452), ufloat(9600 - 1852.415,152.329)]
 
@@ -151,7 +151,7 @@ for j in range(9):
     plt.xticks(**ticksFont)
     plt.yticks(**ticksFont)
     
-    gamma = np.abs((T_range/coefficients[0])**-1)
+    gamma = np.abs((amplitude/coefficients[0])**-1)
     delta_phi = 2*np.pi*((np.abs(delta_phi_list[j]))/10)/tau_list[j]
     gamma_disp = "{:.12E}".format(gamma)
     delta_phi_disp = "{:.12E}".format(delta_phi)
@@ -165,7 +165,7 @@ for j in range(9):
     
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.15), prop=font)
-    # plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
+    plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     
@@ -182,7 +182,7 @@ for j in range(9):
 
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-    # plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
+    plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     

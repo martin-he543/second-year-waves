@@ -64,7 +64,7 @@ for i in range(len(dataset_list)):
         gamma = np.abs(ufloat(list[-2][0], 0))/(200/np.pi)
         delta_phi = ufloat(list[-2][1], 0)*10
         
-        r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
+        r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
         
         if t_n == 2:    t_n = 1
         try:
@@ -96,7 +96,7 @@ for i in range(len(dataset_list)):
         plt.yticks(**ticksFont)
 
         plt.legend(loc="best", prop=font)
-        # plt.savefig("Plots/Task2.6A_truncation_" + path.replace(".txt","") + "_n=" + str(t_n) + ".png", dpi=500)
+        plt.savefig("Plots/Task2.6A_truncation_" + path.replace(".txt","") + "_n=" + str(t_n) + ".png", dpi=500)
         #plt.clf()
         #plt.show()
         plt.clf()
