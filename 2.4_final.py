@@ -104,8 +104,7 @@ def formatter2(gamma, delta_phi):
     print(gamma_final, delta_phi_final)
       
 dataset_list = ["1 MINUTE (A).txt","1 MINUTE (B).txt","2 MINUTES (A).txt", "2 MINUTES (B).txt", "4 MINUTES (A).txt", "4 MINUTES (B).txt", "6 MINUTES.txt", "8 MINUTES.txt", "16 MINUTES.txt"]
-tau_list = [300, 300, 600, 600, 1200, 1200, 1800, 2400, 4800]
-tau_diff_list = [300, 300, 600, 600, 2400, 2400, 3600, 4800, 9600]
+tau_list = [600, 600, 1200, 1200, 2400, 2400, 3600, 3800, 9600]
 phi_1_list = [ufloat(209.497,1.171), ufloat(299.835,0.36), ufloat(264.214,0.079), ufloat(172.801,16.777), ufloat(1213.546,1.946), ufloat(1093.014,0.3), ufloat(1421.635,4.923), ufloat(1417.621,18.452), ufloat(1852.415,152.329)]
 p0_list = [[0.1, -0.00864, 0, 10, 0,  0, 54.8], [0.1, -0.00864, 0, 10, 0,  0, 54.8], [32.5, -0.005, -5, 10, 0, 0, 52.5], [2.5, -0.005, -5, 10, 0.001,  2, 62.2], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [18, -0.0018, -6.5, 10, 0, 0, 50], [32, -0.0013, -7.4, 10, 0, 0, 50], [40, -0.00065, -2, 10, 0, 0, 55], ufloat(1417.621,18.452)]
 filename_list = ["Plots/Task2.4_1min_a.png", "Plots/Task2.4_1min_b.png", "Plots/Task2.4_2min_a.png", "Plots/Task2.4_2min_b.png", "Plots/Task2.4_4min_a.png", "Plots/Task2.4_4min_b.png", "Plots/Task2.4_6min.png", "Plots/Task2.4_8min.png", "Plots/Task2.4_16min.png"]
@@ -113,10 +112,10 @@ filename_list_zoomed = ["Plots/Task2.4_1min_a_zoomed.png", "Plots/Task2.4_1min_b
 amplitude, T_range = ufloat(200/np.pi,0), ufloat(50,0)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
 
-delta_phi_list = [ufloat(300 - 209.497,1.171), ufloat(300 - 299.835,0.36), ufloat(600 - 264.214,0.079), ufloat(600 - 172.801,16.777), ufloat(2400 - 1213.546,1.946), ufloat(2400 - 1093.014,0.3), ufloat(3600 - 1421.635,4.923), ufloat(4800 - 1417.621,18.452), ufloat(9600 - 1852.415,152.329)]
-fixer_upper = [0, 0, 0, 0, 1200, 1200, 1800, 2400, 4800]
+delta_phi_list = [ufloat(600-(300-209.497),1.171), ufloat(600-(300-299.835),0.36), ufloat(1200-(600-264.214),0.079), ufloat(1200-(600-172.801),16.777), ufloat(1213.546,1.946), ufloat(1093.014,0.3), ufloat(1421.635,4.923), ufloat(1417.621,18.452), ufloat(1852.415,152.329)]
+fixer_upper = [0, 0, 0, 0, np.pi, np.pi, np.pi, np.pi, np.pi]
 
-gamma1, delta_phi1 = [], []
+gamma1, delta_phi1, fitting1 = [], [], []
 
 for j in range(9):
     # print(j+1,"/9")
@@ -125,6 +124,7 @@ for j in range(9):
     
     fitting, covariance = curve_fit(DoubleSinusoidal, x_data, y_data, p0 = p0_list[j], maxfev = 1000000)
     print(fitting)
+    fitting1.append(fitting)
     ufloat_list = []
     for i in range(7):
         variables = ["a","b","c","d","e","f","g"]
@@ -153,11 +153,11 @@ for j in range(9):
     plt.yticks(**ticksFont)
     
     gamma = np.abs((amplitude/coefficients[0])**-1)
-    delta_phi = 2*np.pi*((np.abs(delta_phi_list[j]) + fixer_upper[j])/10)/tau_list[j]
+    delta_phi = 2*np.pi*(((delta_phi_list[j])/tau_list[j])) + fixer_upper[0]
     gamma_disp = "{:.12E}".format(gamma)
     delta_phi_disp = "{:.12E}".format(delta_phi)
     print("γ = ", gamma_disp)
-    print("Δφ = ", delta_phi_disp, "s")
+    print("Δφ = ", delta_phi_disp, "s", phi_1_list[j])
     
     plot_title = formatter(gamma, delta_phi)
     
@@ -199,3 +199,4 @@ for j in range(9):
 print("END")
 print(gamma1)
 print(delta_phi1)
+print(fitting1)

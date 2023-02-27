@@ -53,7 +53,7 @@ x, y = np.loadtxt(path, skiprows=3, unpack=True); t_n = 3
 #%% METHOD 1: TRUNCATING A FOURIER SERIES BY FFT
 for i in range(len(dataset_list)):
     path = dataset_list[i]
-    n = 3
+    n = 49
     time, x = np.loadtxt(path, skiprows=3, unpack=True); t_n = n
     X = fft(x); X[t_n:-t_n] = 0
     x_trunc = np.real(np.fft.ifft(X))
@@ -67,7 +67,7 @@ for i in range(len(dataset_list)):
 
     gamma = ufloat(list[1][0], 0)
     delta_phi = ufloat(list[1][1], 0)
-    r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057, 0.00001)
+    r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
     D_gamma = (np.pi/4)*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
     D_delta_phi = (np.pi/4)*(r_inner - r_outer)**2/(2*delta_phi**2)
     
