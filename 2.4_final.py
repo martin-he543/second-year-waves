@@ -46,10 +46,14 @@ def superscripter(string):
         else:   new_string += char
     return new_string
 
+D_gamma1, D_delta_phi1 = [], []
+
 def formatter(gamma, delta_phi):
     D_gamma = angular_freq_list[j]*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
     D_delta_phi = angular_freq_list[j]*(r_inner - r_outer)**2/(2*delta_phi**2)
-
+    D_gamma1.append(D_gamma)
+    D_delta_phi1.append(D_delta_phi)
+    
     D_gamma = "{:.4E}".format(D_gamma)
     D_delta_phi = "{:.4E}".format(D_delta_phi)
     D_gamma = D_gamma.replace("E"," ×10")
@@ -167,7 +171,7 @@ for j in range(9):
     
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.15), prop=font)
-    plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
+    # plt.savefig(filename_list[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     
@@ -184,7 +188,7 @@ for j in range(9):
 
     plt.title(plot_title, **subtitleFont)
     plt.legend(loc="center left", bbox_to_anchor=(0.82, 0.1), prop=font)
-    plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
+    # plt.savefig(filename_list_zoomed[j], dpi=1000, bbox_inches='tight')
     # plt.show()
     plt.clf()
     
@@ -198,6 +202,9 @@ for j in range(9):
     
     
 print("END")
-print(gamma1)
-print(delta_phi1)
-print(fitting1)
+# print(gamma1)
+# print(delta_phi1)
+# print(fitting1)
+
+print(D_gamma1)
+print(D_delta_phi1)

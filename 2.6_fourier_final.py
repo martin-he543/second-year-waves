@@ -91,7 +91,6 @@ iter = [2, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 3
 fitting_list = [[ 1.14315331e+00, -1.04270843e-02,  2.18685847e+00,  2.79251361e-01, 1.88453743e-03, -2.43625158e+00,  5.49363961e+01], [ 3.33244678e-01, -1.04651884e-02,  3.13783192e+00,  6.60374876e+00, 7.22865456e-05,  7.00102393e-01,  4.43863986e+01],  [ 2.45952847e+00, -5.23969260e-03, -4.89878393e+00, -1.44727781e+03, 4.40365418e-06, -1.55799938e+00, -1.39432611e+03], [ 3.20855380e+00, -5.14761643e-03, -5.39367086e+00,  9.26017797e+04, 4.62202842e-06,  4.69683282e+00,  9.26568709e+04], [ 9.36128576e+00, -2.62544700e-03,  4.45078418e-02,  2.63654678e-01, 7.92086040e-04,  1.17249465e+01,  5.12891291e+01], [ 1.02111182e+01, -2.60313065e-03, -2.96335546e-01,  3.97283403e+01, 1.41269834e-04,  1.31578673e+01,  2.12405828e+01], [ 1.76305647e+01, -1.74569029e-03, -6.94304285e+00,  2.60984118e+03, -2.54320115e-06, -1.55054158e+00,  2.66136231e+03], [ 2.81370442e+01, -1.31018225e-03, -7.56743718e+00,  2.98618640e+03, 3.79780011e-06,  1.52969650e+00, -2.93337587e+03], [ 3.89088596e+01, -6.48049847e-04, -1.94113513e+00,  2.32054371e+05, -1.20475654e-06, -1.55568360e+00,  2.32105536e+05]]
 p0_list = [[0.1, -0.00864, 0, 10, 0,  0, 54.8], [0.1, -0.00864, 0, 10, 0,  0, 54.8], [32.5, -0.005, -5, 10, 0, 0, 52.5], [2.5, -0.005, -5, 10, 0.001,  2, 62.2], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [18, -0.0018, -6.5, 10, 0, 0, 50], [32, -0.0013, -7.4, 10, 0, 0, 50], [40, -0.00065, -2, 10, 0, 0, 55], ufloat(1417.621,18.452)]
 
-
 # subtitle_list = []
 for i in range(len(dataset_list)):
     for n in iter:
@@ -106,8 +105,8 @@ for i in range(len(dataset_list)):
         phase = np.angle(X[:t_n + 1])
 
         for m in range(t_n + 1):
-            if n == iter[-1]:  
-                print(f"A_{m} = {amp[m]:.4E}, Δφ_{m} = {phase[m]:.4E}")
+            # if n == iter[-1]:  
+                # print(f"A_{m} = {amp[m]:.4E}, Δφ_{m} = {phase[m]:.4E}")
             # print(f"A_{n} = {amp[n]:.4E}, Δφ_{n} = {phase[n]:.4E}")
             # print(f"{phase[n]:.12f}")
             list.append([amp[m], phase[m]])
@@ -130,7 +129,7 @@ for i in range(len(dataset_list)):
             subtitle = "$Dᵧ$ = " + D_gamma + ", $D_Δᵩ$ = " + D_delta_phi
         except ZeroDivisionError:   print("FAILED")
             
-        print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
+        # print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
             
         t = np.linspace(time[1], time[-1], len(x))
         plt.plot(t, x, label='Original Data', **pointStyle)
@@ -138,6 +137,7 @@ for i in range(len(dataset_list)):
         cf_trunc, cov_trunc = curve_fit(DoubleSinusoidal, t, x_trunc, p0=p0_list[i][:3])      
         # plt.plot(t, DoubleSinusoidal(t, *cf_trunc), label='Fitted Truncated Fourier Series')
         # plt.plot(t, fitting_list[i][3] * np.sin(fitting_list[i][4] * t + fitting_list[i][5]) + fitting_list[i][6], label='Fitted Truncated Fourier Series', **lineStyle)
+        
         
         plt.suptitle("Task 2.6A: Truncating a Fourier Series, n = {:.0f}".format(t_n), **titleFont)
         plt.title(plot_title, **subtitleFont)

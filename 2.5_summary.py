@@ -32,7 +32,7 @@ def logarithmic(x, a, b, c):
     return a * np.log(b * x) + c
 
 x = np.linspace(0, 20, 1000)
-total_D = D1 + D2
+total_D = (D1 + D2)/2
 total_unc_D = unc_D1 + unc_D2
 
 fit1, cov1 = curve_fit(exponential, T, D1, sigma=unc_D1, absolute_sigma=True, maxfev=1000000)
@@ -61,7 +61,7 @@ fig.legend(loc="lower right", prop=font, bbox_to_anchor=(0.60, 0.57))
 ax.set_xscale("log")
 ax.set_yscale("log")
 ax.set_xlim(0.9, 20)
-plt.savefig("Plots/2.5_summary_plot.png", bbox_inches="tight", dpi=1000)
+# plt.savefig("Plots/2.5_summary_plot.png", bbox_inches="tight", dpi=1000)
 plt.show()
 
 variables = ["a", "b", "c"]
