@@ -47,8 +47,8 @@ def superscripter(string):
     return new_string
 
 def formatter(gamma, delta_phi):
-    D_gamma = (np.pi*2)*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
-    D_delta_phi = (np.pi*2)*(r_inner - r_outer)**2/(2*delta_phi**2)
+    D_gamma = angular_freq_list[j]*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
+    D_delta_phi = angular_freq_list[j]*(r_inner - r_outer)**2/(2*delta_phi**2)
 
     D_gamma = "{:.4E}".format(D_gamma)
     D_delta_phi = "{:.4E}".format(D_delta_phi)
@@ -111,6 +111,7 @@ filename_list = ["Plots/Task2.4_1min_a.png", "Plots/Task2.4_1min_b.png", "Plots/
 filename_list_zoomed = ["Plots/Task2.4_1min_a_zoomed.png", "Plots/Task2.4_1min_b_zoomed.png", "Plots/Task2.4_2min_a_zoomed.png", "Plots/Task2.4_2min_b_zoomed.png", "Plots/Task2.4_4min_a_zoomed.png", "Plots/Task2.4_4min_b_zoomed.png", "Plots/Task2.4_6min_zoomed.png", "Plots/Task2.4_8min_zoomed.png", "Plots/Task2.4_16min_zoomed.png"]
 amplitude, T_range = ufloat(200/np.pi,0), ufloat(50,0)
 r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
+angular_freq_list = [np.pi/30, np.pi/30, np.pi/60, np.pi/60, np.pi/120, np.pi/120, np.pi/180, np.pi/240, np.pi/480]
 
 delta_phi_list = [ufloat(600-(300-209.497),1.171), ufloat(600-(300-299.835),0.36), ufloat(1200-(600-264.214),0.079), ufloat(1200-(600-172.801),16.777), ufloat(1213.546,1.946), ufloat(1093.014,0.3), ufloat(1421.635,4.923), ufloat(1417.621,18.452), ufloat(1852.415,152.329)]
 fixer_upper = [0, 0, 0, 0, np.pi, np.pi, np.pi, np.pi, np.pi]
@@ -152,8 +153,8 @@ for j in range(9):
     plt.xticks(**ticksFont)
     plt.yticks(**ticksFont)
     
-    gamma = np.abs((amplitude/coefficients[0])**-1)
-    delta_phi = 2*np.pi*(((delta_phi_list[j])/tau_list[j])) + fixer_upper[0]
+    gamma = np.abs(coefficients[0]/amplitude)
+    delta_phi = 2*np.pi*(((delta_phi_list[j])/tau_list[j]))
     gamma_disp = "{:.12E}".format(gamma)
     delta_phi_disp = "{:.12E}".format(delta_phi)
     print("γ = ", gamma_disp)
