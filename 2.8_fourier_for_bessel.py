@@ -104,8 +104,8 @@ for i in range(len(dataset_list)):
         phase = np.angle(X[:t_n + 1])
 
         for m in range(t_n + 1):
-            if n == iter[-1]:  
-                print(f"A_{m} = {amp[m]:.4E}, Δφ_{m} = {phase[m]:.4E}")
+            # if n == iter[-1]:  
+                # print(f"A_{m} = {amp[m]:.4E}, Δφ_{m} = {phase[m]:.4E}")
             # print(f"A_{n} = {amp[n]:.4E}, Δφ_{n} = {phase[n]:.4E}")
             # print(f"{phase[n]:.12f}")
             list.append([amp[m], phase[m]])
@@ -128,14 +128,15 @@ for i in range(len(dataset_list)):
             subtitle = "$Dᵧ$ = " + D_gamma + ", $D_Δᵩ$ = " + D_delta_phi
         except ZeroDivisionError:   print("FAILED")
             
-        print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
+        # print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
             
         t = np.linspace(time[1], time[-1], len(x))
-        plt.plot(t, x, label='Original Data', **pointStyle)
-        plt.plot(t, x_trunc, label='Truncated Fourier Series', **lineStyleR)
-        cf_trunc, cov_trunc = curve_fit(DoubleSinusoidal, t, x_trunc, p0=p0_list[i][:3])      
-        # plt.plot(t, DoubleSinusoidal(t, *cf_trunc), label='Fitted Truncated Fourier Series')
-        # plt.plot(t, fitting_list[i][3] * np.sin(fitting_list[i][4] * t + fitting_list[i][5]) + fitting_list[i][6], label='Fitted Truncated Fourier Series', **lineStyle)
+        shift_down = fitting_list[i][3] * np.sin(fitting_list[i][4] * t + fitting_list[i][5]) + fitting_list[i][6]
+        plt.plot(t, x - shift_down, label='Original Data', **pointStyle)
+        plt.plot(t, x_trunc - shift_down, label='Truncated Fourier Series', **lineStyleR)
+        cf_trunc, cov_trunc = curve_fit(Sinusoidal, t, x_trunc - shift_down, p0=[fitting_list[i][0], fitting_list[i][1], fitting_list[i][2], 0])      
+        plt.plot(t, Sinusoidal(t, *cf_trunc), label='Fitted Truncated Fourier Series', **lineStyleBoldG)
+        print(cf_trunc)
         
         plt.suptitle("Task 2.6A: Truncating a Fourier Series, n = {:.0f}".format(t_n), **titleFont)
         plt.title(plot_title, **subtitleFont)
@@ -144,7 +145,7 @@ for i in range(len(dataset_list)):
         plt.xticks(**ticksFont)
         plt.yticks(**ticksFont)
 
-        plt.legend(loc="best", prop=font)
+        plt.legend(loc="upper right", prop=font)
         #plt.savefig("Plots/Task2.6A_truncation_" + path.replace(".txt","") + "_n=" + str(t_n) + ".png", dpi=500)
         #plt.clf()
         plt.show()
