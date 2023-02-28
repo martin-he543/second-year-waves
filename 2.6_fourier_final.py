@@ -129,7 +129,7 @@ for i in range(len(dataset_list)):
             subtitle = "$Dᵧ$ = " + D_gamma + ", $D_Δᵩ$ = " + D_delta_phi
         except ZeroDivisionError:   print("FAILED")
             
-        # print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
+        print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
             
         t = np.linspace(time[1], time[-1], len(x))
         plt.plot(t, x, label='Original Data', **pointStyle)

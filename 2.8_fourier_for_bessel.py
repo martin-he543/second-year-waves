@@ -38,7 +38,6 @@ def Sinusoidal(x, a, b, c, d):  return a * np.sin(b * x + c) + d
 def DoubleSinusoidal(x, a, b, c):  return a * np.sin(b * x + c) + fitting_list[i][3] * np.sin(fitting_list[i][4] * x + fitting_list[i][5]) + fitting_list[i][6]
 
 def substring_after(s, delim):  return s.partition(delim)[2]
-
 def superscripter(string):
     superscript_map = {'0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '¯'}; new_string = ''
     for char in string:
@@ -46,11 +45,9 @@ def superscripter(string):
             new_string += superscript_map[char.lower()]
         else:   new_string += char
     return new_string
-
 def formatter(gamma, delta_phi):
-    D_gamma = (np.pi*2)*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
-    D_delta_phi = (np.pi*2)*(r_inner - r_outer)**2/(2*delta_phi**2)
-
+    D_gamma = (angular_freq_list[i])*(r_inner - r_outer)**2/(2*unumpy.log(gamma)**2)
+    D_delta_phi = (angular_freq_list[i])*(r_inner - r_outer)**2/(2*delta_phi**2)
     D_gamma = "{:.4E}".format(D_gamma)
     D_delta_phi = "{:.4E}".format(D_delta_phi)
     D_gamma = D_gamma.replace("E"," ×10")
@@ -60,7 +57,6 @@ def formatter(gamma, delta_phi):
 
     exp_gamma = substring_after(D_gamma, " ×10")
     exp_delta_phi = substring_after(D_delta_phi, " ×10")
-
     diff_gamma = ''.join([x[-1] for x in difflib.ndiff(exp_gamma, D_gamma) if x[0] != ' '])
     diff_delta_phi = ''.join([x[-1] for x in difflib.ndiff(exp_delta_phi, D_delta_phi) if x[0] != ' '])
 
@@ -73,7 +69,6 @@ def formatter(gamma, delta_phi):
 
     D_gamma_final = diff_gamma + exp_gamma
     D_delta_phi_final = diff_delta_phi + exp_delta_phi
-
     plot_title = "T = " + dataset_list[i].replace(".txt","") + "; $D_γ$ = " + str(D_gamma_final) + " m².s¯¹, $D_{Δφ}$ = " + str(D_delta_phi_final) + " m².s¯¹"
 
     # print(D_gamma_final)
@@ -81,14 +76,14 @@ def formatter(gamma, delta_phi):
     return(plot_title)
 
 #%% Task 2.6 - Fourier Analysis of a Signal
-
 dataset_list = ["1 MINUTE (A).txt","1 MINUTE (B).txt","2 MINUTES (A).txt", "2 MINUTES (B).txt", "4 MINUTES (A).txt", "4 MINUTES (B).txt", "6 MINUTES.txt", "8 MINUTES.txt", "16 MINUTES.txt"]
 dataset_values = [2, 2, 1, 1, 0.5, 0.5, 1/3, 0.25, 0.125]
 iter = [2, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49]
 # iter = [49]
 fitting_list = [[ 1.14315331e+00, -1.04270843e-02,  2.18685847e+00,  2.79251361e-01, 1.88453743e-03, -2.43625158e+00,  5.49363961e+01], [ 3.33244678e-01, -1.04651884e-02,  3.13783192e+00,  6.60374876e+00, 7.22865456e-05,  7.00102393e-01,  4.43863986e+01],  [ 2.45952847e+00, -5.23969260e-03, -4.89878393e+00, -1.44727781e+03, 4.40365418e-06, -1.55799938e+00, -1.39432611e+03], [ 3.20855380e+00, -5.14761643e-03, -5.39367086e+00,  9.26017797e+04, 4.62202842e-06,  4.69683282e+00,  9.26568709e+04], [ 9.36128576e+00, -2.62544700e-03,  4.45078418e-02,  2.63654678e-01, 7.92086040e-04,  1.17249465e+01,  5.12891291e+01], [ 1.02111182e+01, -2.60313065e-03, -2.96335546e-01,  3.97283403e+01, 1.41269834e-04,  1.31578673e+01,  2.12405828e+01], [ 1.76305647e+01, -1.74569029e-03, -6.94304285e+00,  2.60984118e+03, -2.54320115e-06, -1.55054158e+00,  2.66136231e+03], [ 2.81370442e+01, -1.31018225e-03, -7.56743718e+00,  2.98618640e+03, 3.79780011e-06,  1.52969650e+00, -2.93337587e+03], [ 3.89088596e+01, -6.48049847e-04, -1.94113513e+00,  2.32054371e+05, -1.20475654e-06, -1.55568360e+00,  2.32105536e+05]]
 p0_list = [[0.1, -0.00864, 0, 10, 0,  0, 54.8], [0.1, -0.00864, 0, 10, 0,  0, 54.8], [32.5, -0.005, -5, 10, 0, 0, 52.5], [2.5, -0.005, -5, 10, 0.001,  2, 62.2], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [10.3, -0.00264, 0, 10, 0.00032, 11.9, 52], [18, -0.0018, -6.5, 10, 0, 0, 50], [32, -0.0013, -7.4, 10, 0, 0, 50], [40, -0.00065, -2, 10, 0, 0, 55], ufloat(1417.621,18.452)]
-
+period_list = [60, 60, 120, 120, 240, 240, 360, 480, 960]
+angular_freq_list = [np.pi/30, np.pi/30, np.pi/60, np.pi/60, np.pi/120, np.pi/120, np.pi/180, np.pi/240, np.pi/480]
 
 # subtitle_list = []
 for i in range(len(dataset_list)):
@@ -112,7 +107,7 @@ for i in range(len(dataset_list)):
             
         r_inner, r_outer = ufloat(0.00250, 0.00005), ufloat(0.02057/2, 0.00001)
         gamma = np.abs(ufloat(list[-2][0], 0))/(200/np.pi)
-        delta_phi = ufloat(list[-2][1], 0)*10
+        delta_phi = 2*np.pi*ufloat(list[-2][1], 0)/period_list[i]
         plot_title = formatter(gamma, delta_phi)
                 
         if t_n == 2:    t_n = 1
@@ -129,14 +124,14 @@ for i in range(len(dataset_list)):
         except ZeroDivisionError:   print("FAILED")
             
         # print(f"Dᵧ({t_n}) = {D_gamma}, D_Δᵩ({t_n}) = {D_delta_phi}")
-            
+        
         t = np.linspace(time[1], time[-1], len(x))
         shift_down = fitting_list[i][3] * np.sin(fitting_list[i][4] * t + fitting_list[i][5]) + fitting_list[i][6]
         plt.plot(t, x - shift_down, label='Original Data', **pointStyle)
         plt.plot(t, x_trunc - shift_down, label='Truncated Fourier Series', **lineStyleR)
         cf_trunc, cov_trunc = curve_fit(Sinusoidal, t, x_trunc - shift_down, p0=[fitting_list[i][0], fitting_list[i][1], fitting_list[i][2], 0])      
         plt.plot(t, Sinusoidal(t, *cf_trunc), label='Fitted Truncated Fourier Series', **lineStyleBoldG)
-        print(f"{dataset_list[i]} γ_{t_n}: ",cf_trunc[0]/(200/np.pi))
+        print(f"{dataset_list[i]} γ_{t_n}: ",cf_trunc[0]/(200/np.pi), f"; Δφ_{t_n}: ")
         
         plt.suptitle("Task 2.6A: Truncating a Fourier Series, n = {:.0f}".format(t_n), **titleFont)
         plt.title(plot_title, **subtitleFont)
