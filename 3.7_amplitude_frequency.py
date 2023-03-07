@@ -33,3 +33,20 @@ lineStyleBoldG = {'linewidth': 2, 'color': 'green'}
 histStyle =      {'facecolor': 'green', 'alpha': 0.5, 'edgecolor': 'black'}
 barStyle =       {'color': 'green', 'edgecolor': 'black', 'linewidth': 0.25} 
 font =           fnt.FontProperties(family='C059', weight='normal', style='italic', size=8)
+
+f, Mean, StandardDev = np.loadtxt("3.7A_AmplitudeRatio.csv", delimiter=",", unpack=True, skiprows=1)
+
+def linear(x, a, b):    return a*x + b
+
+cf_linear, cov_linear = curve_fit(linear, f, Mean, maxfev = 100000)
+plt.suptitle("Task 3.7A: Phase - Frequency Relationship", **titleFont)
+plt.title("Phase Difference by Frequencies", **subtitleFont)
+plt.plot(f, Mean, 'o', **pointStyle, label="Data")
+plt.plot(f, linear(f, *cf_linear), **lineStyle, label="Linear Fit")
+plt.errorbar(f, Mean, yerr=StandardDev, **errorStyle)
+plt.xlabel("Frequency / Hz", **axesFont)
+plt.ylabel("Phase Difference / degrees", **axesFont)
+plt.xticks(**ticksFont)
+plt.yticks(**ticksFont)
+plt.legend(loc="best", prop=font)
+plt.show()
