@@ -139,15 +139,15 @@ for i in range(len(dataset_list)):
         # plt.plot(t, fitting_list[i][3] * np.sin(fitting_list[i][4] * t + fitting_list[i][5]) + fitting_list[i][6], label='Fitted Truncated Fourier Series', **lineStyle)
         
         
-        plt.suptitle("Task 2.6A: Truncating a Fourier Series, n = {:.0f}".format(t_n), **titleFont)
-        plt.title(plot_title, **subtitleFont)
+        plt.suptitle("Task 2.6A/2.7: Truncating a Fourier Series, n = {:.0f}".format(t_n), **titleFont)
+        # plt.title(plot_title, **subtitleFont)
         plt.xlabel("Time / ds", **axesFont)
         plt.ylabel("Temperature / °C", **axesFont)
         plt.xticks(**ticksFont)
         plt.yticks(**ticksFont)
 
         plt.legend(loc="best", prop=font)
-        # plt.savefig("Plots/Task2.6A_truncation_" + path.replace(".txt","") + "_n=" + str(t_n) + ".png", dpi=500)
+        plt.savefig("Plots/Task2.6A_truncation_" + path.replace(".txt","") + "_n=" + str(t_n) + ".png", dpi=500)
         #plt.clf()
         # plt.show()
         plt.clf()
